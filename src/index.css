@@ -698,6 +698,10 @@ input[type='checkbox']:checked::before {
 
 /* changes not saved */
 
+.animated-div--edit-task {
+  position: absolute;
+}
+
 .confirm-close-not-saved {
   position: absolute;
   border-radius: 6px;
