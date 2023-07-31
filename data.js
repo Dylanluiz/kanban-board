@@ -1,0 +1,560 @@
+import { nanoid } from "nanoid"
+
+export const data = {
+    boards: [
+      {
+        name: "Platform Launch",
+        id: nanoid(),
+        isOpen: false,
+        columns: [
+          {
+            name: "Todo",
+            id: 1,
+            tasks: [
+              {
+                title: "Build UI for onboarding flow",
+                description: "",
+                id: nanoid(),
+                isCurrentTask: false,
+                status: "Todo",
+                subtasks: [
+                  {
+                    title: "Sign up page",
+                    id: nanoid(),
+                    isCompleted: true,
+                    isCurrentTask: false
+                  },
+                  {
+                    title: "Sign in page",
+                    id: nanoid(),
+                    isCompleted: false,
+                    isCurrentTask: false
+                  },
+                  {
+                    title: "Welcome page",
+                    id: nanoid(),
+                    isCompleted: false,
+                    isCurrentTask: false
+                  }
+                ]
+              },
+              {
+                title: "Build UI for search",
+                id: nanoid(),
+                description: "",
+                isCurrentTask: false,
+                status: "Todo",
+                subtasks: [
+                  {
+                    title: "Search page",
+                    id: nanoid(),
+                    isCompleted: false
+                  }
+                ]
+              },
+              {
+                title: "Build settings UI",
+                description: "",
+                id: nanoid(),
+                isCurrentTask: false,
+                status: "Todo",
+                subtasks: [
+                  {
+                    title: "Account page",
+                    id: nanoid(),
+                    isCompleted: false,
+                    isCurrentTask: false
+                  },
+                  {
+                    title: "Billing page",
+                    id: nanoid(),
+                    isCompleted: false,
+                    isCurrentTask: false
+                  }
+                ]
+              },
+              {
+                title: "QA and test all major user journeys",
+                description: "Once we feel version one is ready, we need to rigorously test it both internally and externally to identify any major gaps.",
+                id: nanoid(),
+                isCurrentTask: false,
+                status: "Todo",
+                subtasks: [
+                  {
+                    title: "Internal testing",
+                    id: nanoid(),
+                    isCompleted: false,
+                    isCurrentTask: false
+                  },
+                  {
+                    title: "External testing",
+                    id: nanoid(),
+                    isCompleted: false,
+                    isCurrentTask: false
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            name: "Doing",
+            id: 1,
+            tasks: [
+              {
+                title: "Design settings and search pages",
+                description: "",
+                id: nanoid(),
+                isCurrentTask: false,
+                status: "Doing",
+                subtasks: [
+                  {
+                    title: "Settings - Account page",
+                    id: nanoid(),
+                    isCompleted: true,
+                    isCurrentTask: false
+                  },
+                  {
+                    title: "Settings - Billing page",
+                    id: nanoid(),
+                    isCompleted: true,
+                    isCurrentTask: false
+                  },
+                  {
+                    title: "Search page",
+                    id: nanoid(),
+                    isCompleted: false,
+                    isCurrentTask: false
+                  }
+                ]
+              },
+              {
+                title: "Add account management endpoints",
+                description: "",
+                id: nanoid(),
+                isCurrentTask: false,
+                status: "Doing",
+                subtasks: [
+                  {
+                    title: "Upgrade plan",
+                    id: nanoid(),
+                    isCompleted: true,
+                    isCurrentTask: false
+                  },
+                  {
+                    title: "Cancel plan",
+                    id: nanoid(),
+                    isCompleted: true,
+                    isCurrentTask: false
+                  },
+                  {
+                    title: "Update payment method",
+                    id: nanoid(),
+                    isCompleted: false,
+                    isCurrentTask: false
+                  }
+                ]
+              },
+              {
+                title: "Design onboarding flow",
+                description: "",
+                id: nanoid(),
+                isCurrentTask: false,
+                status: "Doing",
+                subtasks: [
+                  {
+                    title: "Sign up page",
+                    id: nanoid(),
+                    isCompleted: true,
+                    isCurrentTask: false
+                  },
+                  {
+                    title: "Sign in page",
+                    id: nanoid(),
+                    isCompleted: false,
+                    isCurrentTask: false
+                  },
+                  {
+                    title: "Welcome page",
+                    id: nanoid(),
+                    isCompleted: false
+                  }
+                ]
+              },
+              {
+                title: "Add search enpoints",
+                description: "",
+                id: nanoid(),
+                isCurrentTask: false,
+                status: "Doing",
+                subtasks: [
+                  {
+                    title: "Add search endpoint",
+                    id: nanoid(),
+                    isCompleted: true
+                  },
+                  {
+                    title: "Define search filters",
+                    id: nanoid(),
+                    isCompleted: false
+                  }
+                ]
+              },
+              {
+                title: "Add authentication endpoints",
+                description: "",
+                id: nanoid(),
+                isCurrentTask: false,
+                status: "Doing",
+                subtasks: [
+                  {
+                    title: "Define user model",
+                    id: nanoid(),
+                    isCompleted: true
+                  },
+                  {
+                    title: "Add auth endpoints",
+                    id: nanoid(),
+                    isCompleted: false
+                  }
+                ]
+              },
+              {
+                title: "Research pricing points of various competitors and trial different business models",
+                description: "We know what we're planning to build for version one. Now we need to finalise the first pricing model we'll use. Keep iterating the subtasks until we have a coherent proposition.",
+                id: nanoid(),
+                isCurrentTask: false,
+                status: "Doing",
+                subtasks: [
+                  {
+                    title: "Research competitor pricing and business models",
+                    id: nanoid(),
+                    isCompleted: true
+                  },
+                  {
+                    title: "Outline a business model that works for our solution",
+                    id: nanoid(),
+                    isCompleted: false
+                  },
+                  {
+                    title: "Talk to potential customers about our proposed solution and ask for fair price expectancy",
+                    id: nanoid(),
+                    isCompleted: false
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            name: "Done",
+            id: 1,
+            tasks: [
+              {
+                title: "Conduct 5 wireframe tests",
+                description: "Ensure the layout continues to make sense and we have strong buy-in from potential users.",
+                id: nanoid(),
+                isCurrentTask: false,
+                status: "Done",
+                subtasks: [
+                  {
+                    title: "Complete 5 wireframe prototype tests",
+                    id: nanoid(),
+                    isCompleted: true
+                  }
+                ]
+              },
+              {
+                title: "Create wireframe prototype",
+                description: "Create a greyscale clickable wireframe prototype to test our asssumptions so far.",
+                id: nanoid(),
+                isCurrentTask: false,
+                status: "Done",
+                subtasks: [
+                  {
+                    title: "Create clickable wireframe prototype in Balsamiq",
+                    id: nanoid(),
+                    isCompleted: true
+                  }
+                ]
+              },
+              {
+                title: "Review results of usability tests and iterate",
+                description: "Keep iterating through the subtasks until we're clear on the core concepts for the app.",
+                id: nanoid(),
+                isCurrentTask: false,
+                status: "Done",
+                subtasks: [
+                  {
+                    title: "Meet to review notes from previous tests and plan changes",
+                    id: nanoid(),
+                    isCompleted: true
+                  },
+                  {
+                    title: "Make changes to paper prototypes",
+                    id: nanoid(),
+                    isCompleted: true
+                  },
+                  {
+                    title: "Conduct 5 usability tests",
+                    id: nanoid(),
+                    isCompleted: true
+                  }
+                ]
+              },
+              {
+                title: "Create paper prototypes and conduct 10 usability tests with potential customers",
+                description: "",
+                id: nanoid(),
+                isCurrentTask: false,
+                status: "Done",
+                subtasks: [
+                  {
+                    title: "Create paper prototypes for version one",
+                    id: nanoid(),
+                    isCompleted: true
+                  },
+                  {
+                    title: "Complete 10 usability tests",
+                    id: nanoid(),
+                    isCompleted: true
+                  }
+                ]
+              },
+              {
+                title: "Market discovery",
+                description: "We need to define and refine our core product. Interviews will help us learn common pain points and help us define the strongest MVP.",
+                id: nanoid(),
+                isCurrentTask: false,
+                status: "Done",
+                subtasks: [
+                  {
+                    title: "Interview 10 prospective customers",
+                    id: nanoid(),
+                    isCompleted: true
+                  }
+                ]
+              },
+              {
+                title: "Competitor analysis",
+                description: "",
+                id: nanoid(),
+                isCurrentTask: false,
+                status: "Done",
+                subtasks: [
+                  {
+                    title: "Find direct and indirect competitors",
+                    id: nanoid(),
+                    isCompleted: true
+                  },
+                  {
+                    title: "SWOT analysis for each competitor",
+                    id: nanoid(),
+                    isCompleted: true
+                  }
+                ]
+              },
+              {
+                title: "Research the market",
+                description: "We need to get a solid overview of the market to ensure we have up-to-date estimates of market size and demand.",
+                id: nanoid(),
+                isCurrentTask: false,
+                status: "Done",
+                subtasks: [
+                  {
+                    title: "Write up research analysis",
+                    id: nanoid(),
+                    isCompleted: true
+                  },
+                  {
+                    title: "Calculate TAM",
+                    id: nanoid(),
+                    isCompleted: true
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        name: "Marketing Plan",
+        id: nanoid(),
+        isOpen: false,
+        columns: [
+          {
+            name: "Todo",
+            id: 2,
+            tasks: [
+              {
+                title: "Plan Product Hunt launch",
+                description: "",
+                id: nanoid(),
+                isCurrentTask: false,
+                status: "Todo",
+                subtasks: [
+                  {
+                    title: "Find hunter",
+                    id: nanoid(),
+                    isCompleted: false
+                  },
+                  {
+                    title: "Gather assets",
+                    id: nanoid(),
+                    isCompleted: false
+                  },
+                  {
+                    title: "Draft product page",
+                    id: nanoid(),
+                    isCompleted: false
+                  },
+                  {
+                    title: "Notify customers",
+                    id: nanoid(),
+                    isCompleted: false
+                  },
+                  {
+                    title: "Notify network",
+                    id: nanoid(),
+                    isCompleted: false
+                  },
+                  {
+                    title: "Launch!",
+                    id: nanoid(),
+                    isCompleted: false
+                  }
+                ]
+              },
+              {
+                title: "Share on Show HN",
+                description: "",
+                id: nanoid(),
+                isCurrentTask: false,
+                status: "",
+                subtasks: [
+                  {
+                    title: "Draft out HN post",
+                    id: nanoid(),
+                    isCompleted: false
+                  },
+                  {
+                    title: "Get feedback and refine",
+                    id: nanoid(),
+                    isCompleted: false
+                  },
+                  {
+                    title: "Publish post",
+                    id: nanoid(),
+                    isCompleted: false
+                  }
+                ]
+              },
+              {
+                title: "Write launch article to publish on multiple channels",
+                description: "",
+                id: nanoid(),
+                isCurrentTask: false,
+                status: "",
+                subtasks: [
+                  {
+                    title: "Write article",
+                    id: nanoid(),
+                    isCompleted: false
+                  },
+                  {
+                    title: "Publish on LinkedIn",
+                    id: nanoid(),
+                    isCompleted: false
+                  },
+                  {
+                    title: "Publish on Inndie Hackers",
+                    id: nanoid(),
+                    isCompleted: false
+                  },
+                  {
+                    title: "Publish on Medium",
+                    id: nanoid(),
+                    isCompleted: false
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            name: "Doing",
+            id: 2,
+            tasks: []
+          },
+          {
+            name: "Done",
+            id: 2,
+            tasks: []
+          }
+        ]
+      },
+      {
+        name: "Roadmap",
+        id: nanoid(),
+        isOpen: false,
+        columns: [
+          {
+            name: "Now",
+            id: 3,
+            tasks: [
+              {
+                title: "Launch version one",
+                description: "",
+                id: nanoid(),
+                isCurrentTask: false,
+                status: "",
+                subtasks: [
+                  {
+                    title: "Launch privately to our waitlist",
+                    id: nanoid(),
+                    isCompleted: false
+                  },
+                  {
+                    title: "Launch publicly on PH, HN, etc.",
+                    id: nanoid(),
+                    isCompleted: false
+                  }
+                ]
+              },
+              {
+                title: "Review early feedback and plan next steps for roadmap",
+                description: "Beyond the initial launch, we're keeping the initial roadmap completely empty. This meeting will help us plan out our next steps based on actual customer feedback.",
+                id: nanoid(),
+                isCurrentTask: false,
+                status: "Next",
+                subtasks: [
+                  {
+                    title: "Interview 10 customers",
+                    id: nanoid(),
+                    isCompleted: false
+                  },
+                  {
+                    title: "Review common customer pain points and suggestions",
+                    id: nanoid(),
+                    isCompleted: false
+                  },
+                  {
+                    title: "Outline next steps for our roadmap",
+                    id: nanoid(),
+                    isCompleted: false
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            name: "Next",
+            id: 3,
+            tasks: []
+          },
+          {
+            name: "Later",
+            id: 3,
+            tasks: []
+          }
+        ]
+      }
+    ]
+  }

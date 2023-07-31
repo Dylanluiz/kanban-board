@@ -1,0 +1,4 @@
+bug list
+
+-top drop down dialog when closed needs to flip the state of setIsKanbanOptions to false 
+- when clicking on the modal for the kanban boards when you click on the same board your currently on it changes the state back to false
