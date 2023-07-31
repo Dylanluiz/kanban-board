@@ -483,6 +483,7 @@ input[type='checkbox']:checked::before {
   font-weight: 700;
   font-size: 15px;
   line-height: 30px;
+  position: relative;
 }
 
 .add-task--subtask-btn, 
@@ -660,7 +661,8 @@ input[type='checkbox']:checked::before {
 
 /* errors */
 
-.pick-status-error {
+.pick-status-error, 
+.subtask-error {
   position: absolute;
   padding: 5px 15px;
   border-radius: 5px;
@@ -675,7 +677,8 @@ input[type='checkbox']:checked::before {
   margin: 0;
 }
 
-.pick-status-error::after {
+.pick-status-error::after, 
+.subtask-error::after {
   content: '';
   position: absolute;
   width: 10px;
@@ -688,6 +691,10 @@ input[type='checkbox']:checked::before {
   border-right: 5px solid transparent;
   border-top: 5px solid #635FC7;
 }
+
+
+.subtask-error
+
 
 /* changes not saved */
 
@@ -733,4 +740,12 @@ input[type='checkbox']:checked::before {
   background-color: #EA5555;
   color: #FFF;
   margin-right: 5px;
+}
+
+/* no-sub-task */
+
+.no-subtask-text {
+  color: #828FA3;
+  font-size: 14px;
+  margin: 0;
 }

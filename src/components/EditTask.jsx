@@ -73,6 +73,14 @@ export default function EditTask() {
                                         ...column,
                                         tasks: [...column.tasks, currentTasks]
                                     }
+                                } else {
+                                    const taskIndex = column.tasks.findIndex(task => task.id === currentTasks.id)
+                                    const updatedTask = [...column.tasks]
+                                    updatedTask[taskIndex] = currentTasks
+                                    return {
+                                        ...column,
+                                        tasks: updatedTask 
+                                    }
                                 }
                             } else if (column.name !== currentTasks.status){
                                 return {
@@ -109,7 +117,30 @@ export default function EditTask() {
         document.querySelector('.edit-current-task-container').close()
     }
 
-    console.log(currentTasks)
+    function removeSubtask(id) {
+        setBoards(prevBoard => {
+            return prevBoard.map(board => {
+                if (board.isOpen) {
+                    return {
+                        ...board,
+                        columns: board.columns.map(column => {
+                            return {
+                                ...column,
+                                tasks: column.tasks.map(task => {
+                                    if (task.isCurrentTask){
+                                        return {
+                                            ...task,
+                                            subtasks: task.subtasks.filter(subtask => subtask.id !== id)
+                                        }
+                                    } return task
+                                })
+                            }
+                        })
+                    }
+                } return board
+            })
+        })
+    }
 
     return (
        <dialog className={`edit-current-task-container ${themeState ? 'light-mode' : 'dark-mode'}`}>
@@ -172,7 +203,7 @@ export default function EditTask() {
 
                     <div className="edit-current-task--subtasks">
                         <label className="edit-current-task--subtask-label">Subtasks</label>
-                        {currentTasks.subtasks.map(subtask => {
+                        {currentTasks.subtasks.length > 0 ? currentTasks.subtasks.map(subtask => {
                           return (
                             <div className="edit-task--subtask-inner-wrapper">
                                 <input 
@@ -182,7 +213,7 @@ export default function EditTask() {
                                     name='title'
                                     className={`current-task--subtask-input ${themeState ? 'light-mode' : 'dark-mode'}`}
                                     />
-                                <div>
+                                <div onClick={() => removeSubtask(subtask.id)}>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none">
                                         <rect x="12.7279" width="3" height="18" transform="rotate(45 12.7279 0)" fill="#828FA3"></rect>
                                         <rect y="2.12109" width="3" height="18" transform="rotate(-45 0 2.12109)" fill="#828FA3"></rect>
@@ -190,7 +221,7 @@ export default function EditTask() {
                                 </div>
                             </div>
                             )
-                    })}
+                    }) : <div className="no-subtasks"><p>No subtasks</p></div>}
                     <button 
                         type='button'
                         onClick={() => addSubtask()}

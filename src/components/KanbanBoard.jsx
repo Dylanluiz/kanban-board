@@ -51,12 +51,13 @@ export default function KanbanBoard() {
                                         style={{animation: `ease-up ${0.3 + index / 10}s ease-in`}}
                                         onClick={() => isCurrentMainTask(task.id)}>
                                     <h4 className={`task-title ${themeState ? 'light-mode' : 'dark-mode'}`}>{task.title}</h4>  
+                                    {task.subtasks.length > 0 ? 
                                     <p className="tasks-subtasks">{
                                     task.subtasks.map(subtask => { 
                                         if (subtask.isCompleted) {
                                             count++
                                     }
-                                    })}{count} of {task.subtasks.length} subtasks</p>
+                                    })}{count} of {task.subtasks.length} subtasks</p> : <p className="no-subtask-text">- No subtasks</p>}
                                     </div> 
                                 )
                             })}  

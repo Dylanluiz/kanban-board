@@ -154,7 +154,18 @@ export default function NewTask() {
 
             <div className="add-new-task--subtask-container">
                 <label htmlFor="add-new-task--subtask" className="add-new-task--subtask-label">Subtasks</label>
-                
+                <div class='animated-container'>
+                {transitions((style, item) => { 
+                   return item ? 
+                        <animated.div 
+                            style={style} 
+                            className={`subtask-error ${
+                                themeState ? 
+                                'light-mode-background' : 
+                                'dark-mode-background'}`}><p>Please Select a Status</p></animated.div> 
+                                :''
+                    })}
+                    </div>
                     {newTask.subtasks.length > 0 ? newTask.subtasks.map(subtask => {
                         return (
                         <div className="subtask-inner-wrapper">      
