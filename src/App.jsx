@@ -10,39 +10,11 @@ export default function App() {
   const kanbanBoards = document.querySelector('.kanban-boards')
   const [themeState, setThemeState] = useState(false)
 
-  const updateOpenBoard = (id) => {
-    setBoards(prevBoard => {
-     return prevBoard.map(board => {
-        if (board.id === id) {
-          return {
-            ...board,
-            isOpen: true
-          }
-        } else {
-          return {
-            ...board, 
-            isOpen: board.isOpen = false}
-        }
-      })
-    })
-   setTimeout(() => {
-    kanbanBoards.close()
-   }, 100);
-  }
-
   function switchTheme() {
       setThemeState(prevState => !prevState) 
   }
 
-  useEffect(() => {
-    setBoards(prevBoard => {
-      return prevBoard.map((board, index) => {
-        return {...board, id: index + 1}})
-    })
-
-  }, [])
-
-  const value = {boards, updateOpenBoard, themeState, switchTheme, setBoards}
+  const value = {boards, themeState, switchTheme, setBoards}
 
   return (
     <DataContext.Provider value={value}>

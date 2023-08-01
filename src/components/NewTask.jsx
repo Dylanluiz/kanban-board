@@ -6,13 +6,29 @@ import { nanoid } from "nanoid";
 
 export default function NewTask() {
     const {themeState, boards, setBoards} = useContext(DataContext)
-    const [isError, setIsError] = useState(false)
-    const transitions = useTransition(isError, 
+    const [isErrorStatus, setIsErrorStatus] = useState(false)
+    const [isErrorSubtask, setIsErrorSubtask] = useState(false)
+    const [isErrorTitle, setIsErrorTitle] = useState(false)
+    const transitionStatus = useTransition(isErrorStatus, 
         {
             from: {opacity: 0},
             enter: {opacity: 1},
             leave: {opacity: 0}
         })
+    const transitionSubtask = useTransition(isErrorSubtask, 
+        {
+            from: {opacity: 0},
+            enter: {opacity: 1},
+            leave: {opacity: 0}
+        })
+    const transitionTitle = useTransition(isErrorTitle, 
+        {
+            from: {opacity: 0},
+            enter: {opacity: 1},
+            leave: {opacity: 0}
+        })
+
+
     const [newTask, setNewTask] = useState({
         title: "",
         description: "",
@@ -55,13 +71,28 @@ export default function NewTask() {
         event.preventDefault()
 
         const TaskStatuskInput = document.querySelector('.board-options-select').value
-        const TaskStatuskContainer = document.querySelector('.add-new-task--status-container')
-        if (TaskStatuskInput === '') {
-            setIsError(prevError => true)
+        const taskSubtask = document.querySelector('.add-task--subtask')?.value
+        const taskTitle = document.querySelector('.add-task--title').value
+        
+        if (taskTitle === '') {
+            setIsErrorTitle(prevError => true)
             setTimeout(() => {
-                setIsError(prevError => !prevError)
+                setIsErrorTitle(prevError => !prevError)
+            }, 2000);
+        } else if (taskSubtask === '' && newTask.subtasks.length > 0) {
+            setIsErrorSubtask(prevError => true)
+            setTimeout(() => {
+                setIsErrorSubtask(prevError => !prevError)
             }, 2000);
             return  
+        } else if (TaskStatuskInput === '') {
+            setIsErrorStatus(prevError => true)
+            setTimeout(() => {
+                setIsErrorStatus(prevError => !prevError)
+            }, 2000);
+            return  
+        } else {
+            closeNewTask()
         }
 
         setBoards(prevBoard => {
@@ -81,9 +112,7 @@ export default function NewTask() {
                     }
                 }
                 return board
-                
-            })
-           
+            })    
         })
 
         setNewTask(prevTask => {
@@ -129,6 +158,20 @@ export default function NewTask() {
             </button>
             <div className="add-new-task--title-container">
                 <label htmlFor="add-new-task--title" className="add-new-task--title-label">Title</label>
+
+                <div class='animated-container'>
+                {transitionTitle((style, item) => { 
+                   return item ? 
+                        <animated.div 
+                            style={style} 
+                            className={`title-error ${
+                                themeState ? 
+                                'light-mode-background' : 
+                                'dark-mode-background'}`}><p>Please enter Title</p></animated.div> 
+                                :''
+                    })}
+                    </div>
+
                 <input 
                     type="text" 
                     placeholder="e.g. Take coffee break" 
@@ -155,14 +198,14 @@ export default function NewTask() {
             <div className="add-new-task--subtask-container">
                 <label htmlFor="add-new-task--subtask" className="add-new-task--subtask-label">Subtasks</label>
                 <div class='animated-container'>
-                {transitions((style, item) => { 
+                {transitionSubtask((style, item) => { 
                    return item ? 
                         <animated.div 
                             style={style} 
                             className={`subtask-error ${
                                 themeState ? 
                                 'light-mode-background' : 
-                                'dark-mode-background'}`}><p>Please Select a Status</p></animated.div> 
+                                'dark-mode-background'}`}><p>Please enter a subtask</p></animated.div> 
                                 :''
                     })}
                     </div>
@@ -198,16 +241,16 @@ export default function NewTask() {
             <div className="add-new-task--status-container">
                 <label htmlFor="add-new-task--status" className="add-new-task--status-label">Status</label>
                 <div class='animated-container'>
-                {transitions((style, item) => { 
-                   return item ? 
-                        <animated.div 
-                            style={style} 
-                            className={`pick-status-error ${
-                                themeState ? 
-                                'light-mode-background' : 
-                                'dark-mode-background'}`}><p>Please Select a Status</p></animated.div> 
-                                :''
-                    })}
+                    {transitionStatus((style, item) => { 
+                    return item ? 
+                            <animated.div 
+                                style={style} 
+                                className={`pick-status-error ${
+                                    themeState ? 
+                                    'light-mode-background' : 
+                                    'dark-mode-background'}`}><p>Please Select a Status</p></animated.div> 
+                                    :''
+                        })}
                     </div>
                 <select 
                     name="status" 

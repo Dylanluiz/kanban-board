@@ -5,7 +5,7 @@ import { DataContext } from "../App";
 export default function KanbanBoard() {
     const {boards, themeState, setBoards} = useContext(DataContext)
     
-
+    
     function isCurrentMainTask(id) {
         setBoards(prevBoard => {
           return prevBoard.map(board => {
@@ -38,7 +38,7 @@ export default function KanbanBoard() {
                         className={`kanban-board-section ${themeState ? 'light-mode-background' : 'dark-mode-background'}`} 
                         key={coloumn.name}>
                         <div className="title-container">
-                            <div className="coloumn-circle"></div>
+                            <div className="coloumn-circle" style={{backgroundColor: coloumn.color}}></div>
                             <h3 className="coloumn-name">{coloumn.name} ({coloumn.tasks.length})</h3>
                         </div>
                         <div className="kanban-board-tasks">
@@ -67,7 +67,7 @@ export default function KanbanBoard() {
             }))
         }
     })
-    console.log(boards)
+    console.log(boards.map(board => board.columns))
     return (
         <>
         <main 
@@ -77,3 +77,4 @@ export default function KanbanBoard() {
         </>
     )
 }
+
