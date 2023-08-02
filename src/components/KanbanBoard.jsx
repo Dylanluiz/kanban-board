@@ -67,7 +67,7 @@ export default function KanbanBoard() {
             }))
         }
     })
-    console.log(boards.map(board => board.columns))
+
     return (
         <>
         <main 

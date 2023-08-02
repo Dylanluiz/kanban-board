@@ -1,7 +1,8 @@
 import React, { useContext, useState } from "react";
 import { DataContext } from "../App";
 import {IoIosClose} from 'react-icons/io'
-
+import {FaTrash} from 'react-icons/fa' 
+import DeleteTask from "./DeleteTask";
 
 export default function AdditionalInfo() {
     const {boards, themeState, setBoards} = useContext(DataContext)
@@ -56,9 +57,17 @@ export default function AdditionalInfo() {
     });
   }
 
+  function openDeleteTask() {
+    document.querySelector('.delete-task-dialog').showModal()
+  }
+
   function openEditTask() {
     document.querySelector('.edit-current-task-container').showModal()
     document.querySelector('.more-info-dialog').close()
+  }
+
+  function handelChange() {
+    
   }
 
     const isCurrentTask = boards.map(board => {
@@ -67,8 +76,12 @@ export default function AdditionalInfo() {
                 let count = 0
                 if (task.isCurrentTask) {
                     return (
-                        <div className={`additional-info ${themeState ? 'light-mode' : "dark-mode" }`} open>
+                        <div className={`additional-info ${themeState ? 'light-mode' : "dark-mode" }`} key={task.id} open>
                                 <section className="additional-info--heading">
+                                  <button className="delete-task" onClick={() => openDeleteTask()}><FaTrash/></button>
+                                    <DeleteTask
+                                      id={task.id}
+                                    />
                                     <h1>{task.title}</h1>
                                     <div className="additional-info--buttons" >
                                         <button className="settings" onClick={() => openEditTask()}>
@@ -124,9 +137,10 @@ export default function AdditionalInfo() {
                                         <select 
                                           id={`board-options`} 
                                           value={task.status}
+                                          onChange={handelChange}
                                           className={`board-options-select ${themeState ? 'light-mode-background' : 'dark-mode-background'}`}>
                                             {board.columns.map(coloumn => {
-                                                return <option className={`boards-drop ${themeState ? 'light-mode-background' : 'dark-mode-background'}`} value={coloumn.name}>{coloumn.name}</option>
+                                                return <option key={coloumn.id} className={`boards-drop ${themeState ? 'light-mode-background' : 'dark-mode-background'}`} value={coloumn.name}>{coloumn.name}</option>
                                             })}
                                         </select>
                                     </div>

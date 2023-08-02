@@ -8,10 +8,13 @@ import EditTask from "./components/EditTask";
 import NewBoard from "./components/NewBoard";
 import EditBoard from "./components/EditBoard";
 
-
 export default function Home() {
     const {boards, themeState} = useContext(DataContext)
     const [areBoards, setAreBoards] = useState(boards.length > 0 ? true : false)
+
+    function openCreateBoard() {
+        document.querySelector('.new-board-modal').showModal()
+    }
 
     return (
         <>
@@ -29,7 +32,7 @@ export default function Home() {
         <main className={`no-open-board-container ${themeState ? 'light-mode-background' : 'dark-mode-background'}`}>
             <p>There are currently no boards, Create one to get started.</p>
             <section className={`no-open-boards`}>
-            <h2 className="open-board">Create a Board</h2>
+            <h2 className="open-board" onClick={() => openCreateBoard()}>Create a Board</h2>
             </section>
         </main>
         }

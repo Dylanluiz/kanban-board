@@ -205,7 +205,7 @@ export default function EditTask() {
                         <label className="edit-current-task--subtask-label">Subtasks</label>
                         {currentTasks.subtasks.length > 0 ? currentTasks.subtasks.map(subtask => {
                           return (
-                            <div className="edit-task--subtask-inner-wrapper">
+                            <div className="edit-task--subtask-inner-wrapper" key={subtask.id}>
                                 <input 
                                     type='text' 
                                     value={subtask.title} 
@@ -238,6 +238,7 @@ export default function EditTask() {
                             onChange={handelChange}>
                             {boards.map(board => board.isOpen ? board.columns.map(column => 
                                 <option 
+                                    key={column.id}
                                     value={column.name}>{column.name}</option>
                                 ) : '')}
                         </select>

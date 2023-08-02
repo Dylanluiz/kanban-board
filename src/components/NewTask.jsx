@@ -159,7 +159,7 @@ export default function NewTask() {
             <div className="add-new-task--title-container">
                 <label htmlFor="add-new-task--title" className="add-new-task--title-label">Title</label>
 
-                <div class='animated-container'>
+                <div className='animated-container'>
                 {transitionTitle((style, item) => { 
                    return item ? 
                         <animated.div 
@@ -197,7 +197,7 @@ export default function NewTask() {
 
             <div className="add-new-task--subtask-container">
                 <label htmlFor="add-new-task--subtask" className="add-new-task--subtask-label">Subtasks</label>
-                <div class='animated-container'>
+                <div className='animated-container'>
                 {transitionSubtask((style, item) => { 
                    return item ? 
                         <animated.div 
@@ -211,7 +211,7 @@ export default function NewTask() {
                     </div>
                     {newTask.subtasks.length > 0 ? newTask.subtasks.map(subtask => {
                         return (
-                        <div className="subtask-inner-wrapper">      
+                        <div className="subtask-inner-wrapper" key={subtask.id}>      
                             <input 
                             type="text" 
                             id='add-new-task--subtask'
@@ -240,7 +240,7 @@ export default function NewTask() {
 
             <div className="add-new-task--status-container">
                 <label htmlFor="add-new-task--status" className="add-new-task--status-label">Status</label>
-                <div class='animated-container'>
+                <div className='animated-container'>
                     {transitionStatus((style, item) => { 
                     return item ? 
                             <animated.div 
@@ -263,6 +263,7 @@ export default function NewTask() {
                           return board.columns.map(coloumn => {
                                return (
                                <option 
+                                    key={coloumn.id}
                                     value={coloumn.name}
                                     className={`boards-drop ${themeState ? 'light-mode-background' : 'dark-mode-background'}`}
                                     >{coloumn.name}</option>)

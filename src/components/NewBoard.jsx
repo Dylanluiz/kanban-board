@@ -2,12 +2,13 @@ import React, { useContext, useState } from "react";
 import { nanoid } from "nanoid";
 import { DataContext } from "../App";
 import { animated, useTransition } from "@react-spring/web";
+import {IoIosClose} from 'react-icons/io'
 
 export default function NewBoard() {
     const {themeState, setBoards, boards} = useContext(DataContext)
     const [isNoName, setIsNoName] = useState(false)
     const [isNoColumn, setIsNoColumn] = useState(false)
-    const [newBoard, setNewBoard] = useState({name: "", id: nanoid(), isOpen: true, columns: [{name: "Now", id: nanoid(), color: '', tasks: []}, {name: "Next", id: nanoid(), color: '', tasks: []}]})
+    const [newBoard, setNewBoard] = useState({name: "", id: nanoid(), isOpen: true, columns: [{name: "Now", id: nanoid(), color: '#FFFFFF', isDelete: false, tasks: []}, {name: "Next", id: nanoid(), color: '#FFFFFF', isDelete: false, tasks: []}]})
     const isNoNameTransition = useTransition(isNoName, 
         {
             from: {opacity: 0},
@@ -54,13 +55,15 @@ export default function NewBoard() {
               {
                 name: "Now",
                 id: nanoid(),
-                color: '#FFF',
+                color: '#FFFFFF',
+                isDelete: false,
                 tasks: []
               }, 
               {
                 name: "Next",
                 id: nanoid(),
-                color: '#FFF',
+                color: '#FFFFFF',
+                isDelete: false,
                 tasks: []
               }
             ]
@@ -123,7 +126,8 @@ export default function NewBoard() {
         const newColumn = {
             name: "Next",
             id: nanoid(),
-            color: '#FFF',
+            color: '#FFFFFF',
+            isDelete: false,
             tasks: []
           }
         setNewBoard(prevBoard => {
@@ -132,8 +136,15 @@ export default function NewBoard() {
         })
     }
 
+    function closeCreateNewBoard() {
+        document.querySelector('.new-board-modal').close()
+    }
+
     return (
         <dialog className={`new-board-modal ${themeState ? "light-mode" : "dark-mode"}`}>
+            <button type="button" onClick={() => closeCreateNewBoard()} className="close-add-new-task-modal-btn">
+                <IoIosClose />
+            </button>
             <form action="" className="new-board-form" onSubmit={handelSubmit}>
                 <h2 className="new-board--header">Add New Board</h2>
 
@@ -175,7 +186,7 @@ export default function NewBoard() {
                     { 
                         newBoard.columns.map(column => {
                             return (
-                                <div className="new-board-column-inner-container">
+                                <div className="new-board-column-inner-container" key={column.id}>
                                     <input
                                     value={column.name}
                                     name='name'
