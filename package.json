@@ -12,10 +12,13 @@
   "dependencies": {
     "@react-spring/web": "^9.7.3",
     "firebase": "^10.1.0",
+    "install": "^0.13.0",
     "nanoid": "^4.0.2",
+    "npm": "^9.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-icons": "^4.10.1"
+    "react-icons": "^4.10.1",
+    "use-long-press": "^3.1.5"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

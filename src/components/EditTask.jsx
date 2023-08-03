@@ -97,6 +97,7 @@ export default function EditTask() {
 
         setIsChangeSaved(prev => true)
         setConfirmCloseOut(prev => false)
+        document.querySelector('.edit-current-task-container').close()
     }
 
     function closeModals() {

@@ -1,11 +1,16 @@
 import React, { useContext, useState } from "react";
 import AdditionalInfo from "./AdditionalInfo";
 import { DataContext } from "../App";
+import { useLongPress } from "use-long-press";
+
 
 export default function KanbanBoard() {
     const {boards, themeState, setBoards} = useContext(DataContext)
-    
-    
+    const bind = useLongPress((id) => {
+      console.log(id)
+    })
+
+
     function isCurrentMainTask(id) {
         setBoards(prevBoard => {
           return prevBoard.map(board => {
@@ -46,6 +51,7 @@ export default function KanbanBoard() {
                                 let count = 0
                                 return (
                                     <div 
+                                      {...bind(task.id)}
                                         key={task.id} 
                                         className={`kanban-subtask-container ${themeState ? 'light-mode' : 'dark-mode'}`}
                                         style={{animation: `ease-up ${0.3 + index / 10}s ease-in`}}

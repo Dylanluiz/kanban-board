@@ -2,13 +2,13 @@ import './index.css'
 import React, {createContext, useEffect, useState} from 'react'
 import Home from './Home'
 import {data} from '../data'
-import { nanoid } from 'nanoid'
 
 const DataContext = createContext()
 
-export default function App() {
+export default function App(props) {
   const [themeState, setThemeState] = useState(false)
   const [boards, setBoards] = useState([])
+
 
   useEffect(() => {
 
@@ -38,6 +38,11 @@ export default function App() {
   function switchTheme() {
       setThemeState(prevState => !prevState) 
   }
+
+  function moveElements(id) {
+
+  }
+
 
   const value = {boards, themeState, switchTheme, setBoards}
 

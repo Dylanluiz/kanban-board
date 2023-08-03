@@ -22,26 +22,26 @@ export default function Header() {
    
     function openCreateNewTask() {
         document.querySelector('.add-new-task-container').showModal()
+        
     }
 
     function openCreateNewBoard() {
         document.querySelector('.kanban-boards').close()
         document.querySelector('.new-board-modal').showModal()
-       
+        setisKanbanOptions(prev => false)
     }
 
     function openEditBoard() {
         document.querySelector('.edit-current-board-modal').showModal()
     }
 
-    
-    function removeBoard(id) {
-        document.querySelector('.delete-board-dialog').showModal()
-    }
-
     function closeBoardOptions() {
         setisKanbanOptions(prev => false)
         document.querySelector('.kanban-boards').close()
+    }
+
+    function showDeleteBoardModal(name) {
+        document.querySelector(`.${name}-board`).showModal()
     }
 
     const updateOpenBoard = (id) => {
@@ -88,12 +88,11 @@ export default function Header() {
                 <h3 className="board-name">{board.name}</h3>
             </button>
             <button 
-            onClick={() => removeBoard(board.id)} 
+            onClick={() => showDeleteBoardModal(board.name)} 
             className="delete-board-btn"><FaTrash/></button>
-            <DeleteBoard
-                id={board.id}
-            />
+            <DeleteBoard id={board.id} modalName={board.name}/>
             </section>
+            
         )
     })
 

@@ -12,7 +12,6 @@ html, body {
   overflow-y: hidden;
 }
 
-
 /* header */
 
 header {
@@ -293,7 +292,7 @@ header {
 }
 
 .kanban-subtask-container:last-child {
-  margin-bottom: 40px;
+  margin-bottom: 100px;
 }
 
 /* additional info */
@@ -888,7 +887,18 @@ input[type='color']::-webkit-color-swatch {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 90vh;
+    margin: auto;
+    top: 0;
+    height: 100%;
+}
+
+.inner-board-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 40%;
+  margin: auto;
 }
 
 .no-open-board-container p {

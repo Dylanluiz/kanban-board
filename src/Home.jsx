@@ -7,6 +7,7 @@ import { DataContext } from "./App";
 import EditTask from "./components/EditTask";
 import NewBoard from "./components/NewBoard";
 import EditBoard from "./components/EditBoard";
+import DeleteBoard from "./components/DeleteBoard";
 
 export default function Home() {
     const {boards, themeState} = useContext(DataContext)
@@ -30,10 +31,12 @@ export default function Home() {
         </> 
         : 
         <main className={`no-open-board-container ${themeState ? 'light-mode-background' : 'dark-mode-background'}`}>
-            <p>There are currently no boards, Create one to get started.</p>
-            <section className={`no-open-boards`}>
-            <h2 className="open-board" onClick={() => openCreateBoard()}>Create a Board</h2>
-            </section>
+            <div className="inner-board-container">
+                <p>There are currently no boards, Create one to get started.</p>
+                <section className={`no-open-boards`}>
+                    <h2 className="open-board" onClick={() => openCreateBoard()}>Create a Board</h2>
+                </section>
+            </div>
         </main>
         }
         </>
