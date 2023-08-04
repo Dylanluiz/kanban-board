@@ -19,6 +19,7 @@ export const data = {
                 id: nanoid(),
                 isCurrentTask: false,
                 status: "Todo",
+                isDragging: false,
                 subtasks: [
                   {
                     title: "Click the three dots in the right corner",
@@ -37,6 +38,7 @@ export const data = {
                 description: "The first thing you need to do is have a look as the subtask list this will give you a breakdown of the steps you will need to take -- be sure to check off the subtasks once your done",
                 id: nanoid(),
                 isCurrentTask: false,
+                isDragging: false,
                 status: "Next",
                 subtasks: [
                   {
@@ -74,6 +76,7 @@ export const data = {
               description: "Now that you've just created your first task, it's time to make some changes. This is where you will be able to make changes to you tasks, add new subtasks and move the tasks around to there",
               id: nanoid(),
               isCurrentTask: false,
+              isDragging: false,
               status: "Next",
               subtasks: [
                 {
@@ -101,6 +104,7 @@ export const data = {
               id: nanoid(),
               isCurrentTask: false,
               status: "Later",
+              isDragging: false,
               subtasks: [
                 {
                   title: "Create new board",
@@ -123,6 +127,7 @@ export const data = {
               description: "You can edit the board that you've just created aswell if you need to. You can add more columns aswell as Change the column names and colors",
               id: nanoid(),
               isCurrentTask: false,
+              isDragging: false,
               status: "Later",
               subtasks: [
                 {
@@ -142,6 +147,7 @@ export const data = {
               description: "It's sad to see anyone go, but I think you can manage on your own at this point - so it's time to say goodbye",
               id: nanoid(),
               isCurrentTask: false,
+              isDragging: false,
               status: "Later",
               subtasks: [
                 {

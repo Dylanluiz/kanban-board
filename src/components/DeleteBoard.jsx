@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { DataContext } from "../App";
 
 export default function DeleteBoard({id, modalName}) {
-    const {setBoards, themeState} = useContext(DataContext)
+    const {setBoards, themeState, boards} = useContext(DataContext)
 
     function removeBoard() {
         setBoards(prevBoard => {
@@ -18,11 +18,13 @@ export default function DeleteBoard({id, modalName}) {
     function closeDeleteBoard() {
         document.querySelector(`.${modalName}-board`).close()
     }
-    console.log(id)
+    
+    const boardName = boards.filter(board => board.isOpen)[0]
+
     return (
         <dialog className={`delete-board-dialog ${modalName}-board ${themeState ? 'light-mode': 'dark-mode'}`}>
             <h4>Delete this board?</h4>
-            <p>Are you sure you want to delete the ‘Platform Launch’ board? This action will remove all columns and tasks and cannot be reversed.</p>
+            <p>Are you sure you want to delete the <span style={{fontWeight: "700", color: "#FFF"}}>‘{boardName.name}’</span> board? This action will remove all columns and tasks and cannot be reversed.</p>
             <div className="delete-board-btn-container">
                 <button onClick={() => removeBoard()} className="board-btn--delete">Delete</button>
                 <button onClick={() => closeDeleteBoard()} className={`board-btn-cancel ${themeState ? 'light-mode-form-btn' : 'dark-mode-form-btn'}`}>Cancel</button>

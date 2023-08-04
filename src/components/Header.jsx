@@ -8,6 +8,7 @@ export default function Header() {
     const [isKanbanOptions, setisKanbanOptions] = useState(false)
     const {boards, themeState, switchTheme, setBoards} = useContext(DataContext)
     const themeButtonStyle = themeState ? { transform: "translateX(0px)"} : { transform: "translateX(20px)"}
+    const [screenWidth, setScreenWidth] = useState(window.innerWidth)
 
     function openKanbanBoards() {
         const kanbanBoards = document.querySelector('.kanban-boards')
@@ -98,19 +99,23 @@ export default function Header() {
 
     const isBoardSelected = boards.some(board => board.isOpen)
 
+    window.addEventListener('resize', () => setScreenWidth(window.innerWidth))
+
     return (
         <>
         <header className={themeState ? 'light-mode' : 'dark-mode'}>
-           <div className="left-header-container" onClick={() => openKanbanBoards()}>
-                <div className="header-icon">
+        <div className="header-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
                         <rect width="6" height="25" rx="2" fill="#635FC7"/>
                         <rect opacity="0.75" x="9" width="6" height="25" rx="2" fill="#635FC7"/>
                         <rect opacity="0.5" x="18" width="6" height="25" rx="2" fill="#635FC7"/>
                     </svg>
+                    {screenWidth >= 768 ? <h1>Kanban</h1> : ''}
                 </div>
+           <div className="left-header-container" onClick={screenWidth >=768 ? () => {} : () => openKanbanBoards()}>
                 <div className="platform-container">
                     <h2 className={`platform-header ${themeState ? 'light-mode ': 'dark-mode'}`}>{boardName}</h2>
+                    {screenWidth >= 768 ? '' : 
                     <div>
                        {isKanbanOptions ? 
                        <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" viewBox="0 0 9 7" fill="none">
@@ -119,11 +124,16 @@ export default function Header() {
                        <svg xmlns="http://www.w3.org/2000/svg" width="9" height="7" viewBox="0 0 9 7" fill="none">
                        <path d="M1 1L5 5L9 1" stroke="#635FC7" strokeWidth="2"/>
                        </svg>}
-                    </div>
+                    </div>}
                 </div>
            </div>
            <div className="right-header-container">
-                <button className={`create-task ${isBoardSelected ? '' : 'disabled'}`} onClick={() => openCreateNewTask()} disabled={!isBoardSelected}>+</button>
+                <button className={`create-task ${isBoardSelected ? '' : 'disabled'}`} onClick={() => openCreateNewTask()} disabled={!isBoardSelected}>
+                    {screenWidth >=768 ?
+                        <span className="add-new-task-btn-large-display">+ Add New Task</span> :
+                         '+' }
+                    
+                </button>
                 <button className={`settings ${isBoardSelected ? '' : 'disabled'}`} onClick={() => openEditBoard()} disabled={!isBoardSelected}>
                     <div className="setting-layer"></div>
                     <div className="setting-layer"></div>
@@ -131,13 +141,13 @@ export default function Header() {
                 </button>
            </div>
         </header>
-        <dialog className={`kanban-boards ${themeState ? 'light-mode' : 'dark-mode'}`}>
+       <dialog className={`kanban-boards ${themeState ? 'light-mode' : 'dark-mode'}`}>
             <h2 className="all-boards">ALL BOARDS ({boards.length})</h2>
             <div className="current-boards">
             <button type="button" onClick={() => closeBoardOptions()} className="close-add-new-task-modal-btn">
                 <IoIosClose />
             </button>
-                {boardSelectEl}
+                {screenWidth >= 768 ? '' : boardSelectEl}
             </div>
             <div className="add-new-table">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">

@@ -8,7 +8,6 @@ html, body {
   margin: 0;
   padding: 0;
   font-family: 'Plus Jakarta Sans', sans-serif;
-  background-color: #20212C;
   overflow-y: hidden;
 }
 
@@ -16,41 +15,45 @@ html, body {
 
 header {
   display: flex;
-  justify-content: space-between;
   background-color: #2B2C37;
   padding: 20px 16px;
 }
 
 .left-header-container {
   display: flex;
-  align-items: center;
+  align-self: center;
 }
 
 .header-icon {
   display: flex;
-  justify-content: space-evenly;
-  width: 24px;
-  height: 25px;
+  align-items: center;
+  gap: 15px;
+}
+
+.header-icon h1 {
+  margin: 0;
 }
 
 .platform-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-left: 15px;
+  padding-left: 60px;
   cursor: pointer;
 }
 
 .platform-header {
   color: #FFF;
   margin: 0;
-  padding-right: 10px
+  padding-right: 10px;
+  font-size: 20px;
 }
 
 .right-header-container {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-left: auto;
 }
 
 .create-task {
@@ -61,6 +64,9 @@ header {
   padding: 0 20px;
   border-radius: 20px;
   cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  display: flex;
 }
 
 .settings {
@@ -78,6 +84,12 @@ header {
   width: 4px;
   aspect-ratio: 1;
   border-radius: 2px;
+}
+
+.add-new-task-btn-large-display {
+  font-size: 1rem;
+  padding: 12px 5px;
+  font-weight: 700;
 }
 
 /* kanban options modal */
@@ -293,6 +305,28 @@ header {
 
 .kanban-subtask-container:last-child {
   margin-bottom: 100px;
+}
+
+.add-new-column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 6px;
+  text-align: center;
+  width: 280px;
+  padding: 0 20px;
+  margin: 50px 0px 0px 0px;
+}
+
+.add-new-column h2 {
+  margin: 0;
+  font-family: Plus Jakarta Sans;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  width: max-content;
+  color: #635FC7;
 }
 
 /* additional info */
@@ -743,6 +777,7 @@ input[type='color']::-webkit-color-swatch {
   width: 95%;
   border: none;
   border-radius: 8px;
+  padding: 24px;
 }
 
 .edit-current-board--form {
@@ -880,6 +915,14 @@ input[type='color']::-webkit-color-swatch {
   color: #635FC7;
 }
 
+.dark-mode-column {
+  background: linear-gradient(180deg, rgba(43, 44, 55, 0.25) 0%, rgba(43, 44, 55, 0.13) 100%);
+}
+
+.light-mode-column {
+  background: linear-gradient(180deg, #E9EFFA 0%, rgba(233, 239, 250, 0.50) 100%);
+}
+
 /* no open boards */
 
 .no-open-board-container {
@@ -928,6 +971,15 @@ input[type='color']::-webkit-color-swatch {
   border: none;
   border-radius: 8px;
   padding: 24px;
+}
+
+.delete-task-dialog h4 {
+  margin: 0;
+}
+
+.delete-task-dialog p {
+  color: #828FA3;
+  margin: 24px 0;
 }
 
 /* errors */
@@ -1029,6 +1081,72 @@ input[type='color']::-webkit-color-swatch {
   border-top: 5px solid #635FC7;
 }
 
+/* animated sidebar */
+
+.side-bar {
+  display: flex;
+  height: 100vh;
+  position: relative;
+}
+
+.sidebar-animated {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.width-changing-sidebar-div {
+  max-width: 300px;
+}
+
+.animated-sidebar {
+  height: calc(100% - 40px);
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  min-width: 250px;
+  max-width: 250px;
+  height: calc(100% - 40px);
+}
+
+.side-bar-board-options {
+  width: 89%;
+}
+
+.toggle-side-bar-theme {
+  margin-top: auto;
+  padding: 12px;
+}
+
+.hide-sidebar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 18px 12px 30px 12px;
+}
+
+.hide-sidebar p {
+  color: #828FA3;
+  font-weight: 700;
+  margin: 0;
+}
+
+.side-popup {
+  background-color: #635FC7;
+  bottom: 50px;
+  padding: 15px 25px 15px 20px;
+  border-radius: 0px 100px 100px 0px;
+}
+
+.animated-popup {
+  position: absolute;
+  left: 200px;
+  bottom: 120px;
+  z-index: 2;
+}
+
 /* changes not saved */
 
 .animated-div--edit-task {
@@ -1088,9 +1206,45 @@ input[type='color']::-webkit-color-swatch {
   margin: 0;
 }
 
+/* draggable */
+
+.draggable.dragging {
+  opacity: .5;
+}
+
 /* disabled */
 
 .disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+@media (min-width: 425px) {
+  .more-info-dialog, 
+  .edit-current-task-container, 
+  .add-new-task-container, 
+  .edit-current-board-modal, 
+  .delete-board-dialog, 
+  .delete-task-dialog, 
+  .new-board-modal {
+    max-width: 480px;
+  }
+}
+
+@media (min-width: 768px) {
+  .left-header-container {
+    padding-left: 15px;
+    height: fit-content;
+    top: 3px;
+    position: relative;
+  }
+
+  .theme-toggle-inner {
+    padding: 15px 40px
+  }
+
+  .all-boards {
+     color: #828FA3;
+     font-size: 0.8rem;
+  }
 }

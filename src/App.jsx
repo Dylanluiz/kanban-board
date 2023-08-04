@@ -5,16 +5,13 @@ import {data} from '../data'
 
 const DataContext = createContext()
 
-export default function App(props) {
+export default function App() {
   const [themeState, setThemeState] = useState(false)
   const [boards, setBoards] = useState([])
 
-
   useEffect(() => {
-
     const storedData = localStorage.getItem('boards')
     
-
     if (storedData) {
       const parsedData = JSON.parse(storedData)
       
@@ -35,14 +32,32 @@ export default function App(props) {
   }, [boards])
 
 
+  useEffect(() => {
+    const themeData = localStorage.getItem('theme')
+
+    if (themeData) {
+      const parsedTheme = JSON.parse(themeData)
+
+      if (parsedTheme) {
+        setThemeState(parsedTheme)
+      } 
+    } else {
+      setThemeState(false)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!themeState) {
+      localStorage.setItem('theme', JSON.stringify(themeState))
+    } else {
+      localStorage.setItem('theme', JSON.stringify(themeState))
+    }
+  }, [themeState])
+
+
   function switchTheme() {
       setThemeState(prevState => !prevState) 
   }
-
-  function moveElements(id) {
-
-  }
-
 
   const value = {boards, themeState, switchTheme, setBoards}
 
