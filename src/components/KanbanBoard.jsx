@@ -1,49 +1,105 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import AdditionalInfo from "./AdditionalInfo";
 import { DataContext } from "../App";
 import { nanoid } from "nanoid";
+import { useEffect } from "react";
 
 export default function KanbanBoard() {
     const {boards, themeState, setBoards} = useContext(DataContext)
     const [screenWidth, setScreenWidth] = useState()
-    const draggables = document.querySelectorAll('.draggable')
-    const containers = document.querySelectorAll('.kanban-board-tasks')
+    const draggables = useRef([])
+    const containers = useRef([])
+    const dargedObj = useRef({})
+    const currentContainer = useRef('')
+  
 
-    draggables.forEach(draggable => {
-      draggable.addEventListener('dragstart', (e) => {
-        const dataset = e.target.dataset
-        draggable.classList.add('dragging')
-        const currentObj = boards.map(board => {
-            if (board.isOpen) {
-              return board.columns.map(column => {
-                return column.tasks.find(task => {
-                  if (task.id == dataset.id) {
-                    return task
-                  }
-                })
-              }).filter(item => item !== undefined)[0]
+  useEffect(() => {
+    draggables.current = document.querySelectorAll('.draggable')
+    containers.current = document.querySelectorAll('.kanban-board-tasks')
+
+    const handelDragStart = e => {
+      const elDataId = e.target.dataset.id
+      const currentElementDragged = boards.map(board => {
+        if (board.isOpen) {
+          return board.columns.map(column => {
+            return column.tasks.find(task => task.id === elDataId)
+          }).filter(el => el !== undefined)[0]
+        }
+      })[0]
+
+      dargedObj.current = currentElementDragged
+    }
+
+    const handelDragEnd = e => {
+
+      setBoards(prevBoards => {
+        return prevBoards.map(board => {
+          if (board.isOpen) {
+            return {
+              ...board,
+              columns: board.columns.map(column => {
+                return {
+                  ...column,
+                  tasks: column.tasks.filter(task => task !== dargedObj.current)
+                }
+              })
             }
-          })[0]
-          console.log(currentObj)
+          } return board
         })
-      
-      draggable.addEventListener('dragend', () => {
-        draggable.classList.remove('dragging')
       })
+
+      setBoards(prevBoard => {
+        return prevBoard.map(board => {
+          if (board.isOpen) {
+            return {
+              ...board,
+              columns: board.columns.map(column => {
+                if (column.id === currentContainer.current) {
+                  return {
+                    ...column,
+                    tasks: [...column.tasks, dargedObj.current]
+                  }
+                }  return column
+              })
+            }
+          }  return board
+        })
+      })
+    }
+
+    draggables.current.forEach(draggable => {
+      draggable.addEventListener('dragstart', handelDragStart)
+      draggable.addEventListener('dragend', handelDragEnd)
     })
 
-    containers.forEach(container => {
+    containers.current.forEach(container =>{
       container.addEventListener('dragover', e => {
         e.preventDefault()
-        const draggable = document.querySelector('.dragging')
-
-
-        container.appendChild(draggable)
+        const elData = container.dataset.id
+        currentContainer.current = elData
+        console.log(elData)
       })
+    
     })
 
+    return () => {
+      draggables.current.forEach(draggable => {
+        draggable.removeEventListener('dragstart', handelDragStart)
+        draggable.removeEventListener('dragend', handelDragEnd)
+      })
 
+      containers.current.forEach(container => {
+        container.removeEventListener('dragover', e => {
+          e.preventDefault()
+          const elData = container.dataset.id
+          currentContainer.current = elData
+        })
+        
+      })
 
+    }
+
+  }, [boards, setBoards])
 
     function isCurrentMainTask(id) {
         setBoards(prevBoard => {
@@ -70,7 +126,7 @@ export default function KanbanBoard() {
 
     function addNewColumn() {
       const newColumn =  {
-        name: "",
+        name: "next",
         id: nanoid(),
         color: '#FFFFFF',
         isDelete: false,
@@ -102,7 +158,7 @@ export default function KanbanBoard() {
                             <div className="coloumn-circle" style={{backgroundColor: coloumn.color}}></div>
                             <h3 className="coloumn-name">{coloumn.name} ({coloumn.tasks.length})</h3>
                         </div>
-                        <div className="kanban-board-tasks">
+                        <div className="kanban-board-tasks" data-id={coloumn.id}>
                             {coloumn.tasks.map((task, index) => {
                                 let count = 0
                                 return (
@@ -138,8 +194,10 @@ export default function KanbanBoard() {
             className={`kanban-board-main-container ${themeState ? 'light-mode-background' : 'dark-mode-background'}`}>
             {kanbanBoardEl}
             {screenWidth >= 760 ? 
-              <section className={`add-new-column ${themeState ? 'light-mode-column' : 'dark-mode-column'}`}>
-                <h2 onClick={() => addNewColumn()}>+ Add New Column</h2>
+              <section className={`add-new-column`}>
+                <div className={`inner-new-column ${themeState ? 'light-mode-column' : 'dark-mode-column'}`}>
+                  <h2 onClick={() => addNewColumn()}>+ Add New Column</h2>
+                </div>
               </section> : ''}
         </main>
         </>

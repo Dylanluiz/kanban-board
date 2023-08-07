@@ -21,7 +21,8 @@ export default function Sidebar({isSidebar, setIsSidebar}) {
     }
 
     function showDeleteBoardModal(name) {
-        document.querySelector(`.${name}-board`).showModal()
+        const modifiedName = name.split(' ').filter(l => l !== '').join('')
+        document.querySelector(`.${modifiedName}-board`).showModal()
     }
 
     const updateOpenBoard = (id) => {
