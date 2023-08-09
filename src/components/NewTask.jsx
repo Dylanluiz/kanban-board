@@ -35,6 +35,7 @@ export default function NewTask() {
         id: nanoid(),
         isCurrentTask: false,
         status: '',
+        isDragging: false,
         subtasks: [{title: '', isComplete: false, id: nanoid()}]
       })
 
@@ -121,6 +122,7 @@ export default function NewTask() {
             description: "",
             id: nanoid(),
             isCurrentTask: false,
+            isDragging: false,
             status: prevTask.status,
             subtasks: [{title: '', isComplete: false, id: nanoid()}]
           }

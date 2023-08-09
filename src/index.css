@@ -301,6 +301,7 @@ header {
   justify-content: space-between;
   padding: 23px 16px;
   background-color: #2B2C37;
+  min-width: 290px;
   border-radius: 8px;
   gap: 10px;
   box-shadow: 0px 4px 6px 0px rgba(54, 78, 126, 0.10);
@@ -1169,6 +1170,13 @@ input[type='color']::-webkit-color-swatch {
   z-index: 2;
 }
 
+/* is moving */
+
+.is-moving {
+  opacity: 0.5;
+  border: 2px dotted #635FC7;
+}
+
 /* changes not saved */
 
 .animated-div--edit-task {
@@ -1231,7 +1239,8 @@ input[type='color']::-webkit-color-swatch {
 /* draggable */
 
 .draggable.dragging {
-  opacity: .5;
+  opacity: 1;
+  border: 1px dotted green;
 }
 
 /* disabled */
@@ -1250,6 +1259,10 @@ input[type='color']::-webkit-color-swatch {
   .delete-task-dialog, 
   .new-board-modal {
     max-width: 480px;
+  }
+  
+  .kanban-board-tasks::-webkit-scrollbar {
+    width: 10px;
   }
 }
 

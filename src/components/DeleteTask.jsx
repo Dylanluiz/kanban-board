@@ -38,9 +38,6 @@ export default function DeleteTask({id}) {
         }
     }).filter(item => item !== undefined)[0]
 
-    console.log(taskName)
-
-
     return (
         <dialog className={`delete-task-dialog ${themeState ? 'light-mode': 'dark-mode'}`}>
             <h4>Delete this task?</h4>

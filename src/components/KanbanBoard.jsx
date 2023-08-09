@@ -11,13 +11,20 @@ export default function KanbanBoard() {
     const containers = useRef([])
     const dargedObj = useRef({})
     const currentContainer = useRef('')
-  
+    const ids = boards.map(board => {
+      if (board.isOpen) {
+        return board.columns.map((column, index) => column.id)
+      }
+    })[0]
+    const [movingObj, setMovingObj] = useState(null)
+    const [clientMove, setClientMove] = useState()
 
   useEffect(() => {
     draggables.current = document.querySelectorAll('.draggable')
     containers.current = document.querySelectorAll('.kanban-board-tasks')
-
+    
     const handelDragStart = e => {
+      e.stopPropagation()
       const elDataId = e.target.dataset.id
       const currentElementDragged = boards.map(board => {
         if (board.isOpen) {
@@ -26,12 +33,14 @@ export default function KanbanBoard() {
           }).filter(el => el !== undefined)[0]
         }
       })[0]
-
+      
       dargedObj.current = currentElementDragged
     }
 
     const handelDragEnd = e => {
-
+      e.stopPropagation()
+      if (dargedObj.current.id === e.target.dataset.id) {
+        document.querySelector('.is-moving').classList.remove('is-moving')
       setBoards(prevBoards => {
         return prevBoards.map(board => {
           if (board.isOpen) {
@@ -57,7 +66,7 @@ export default function KanbanBoard() {
                 if (column.id === currentContainer.current) {
                   return {
                     ...column,
-                    tasks: [...column.tasks, dargedObj.current]
+                    tasks: [...column.tasks, {...dargedObj.current, status: column.name}]
                   }
                 }  return column
               })
@@ -66,10 +75,51 @@ export default function KanbanBoard() {
         })
       })
     }
+    setMovingObj(null)
+    }
 
     draggables.current.forEach(draggable => {
       draggable.addEventListener('dragstart', handelDragStart)
       draggable.addEventListener('dragend', handelDragEnd)
+      draggable.addEventListener('touchstart', e => {
+        if (e.target === draggable) {
+          const elDataId = e.target.dataset.id
+          draggable.classList.add('is-moving')
+          const currentElementDragged = boards.map(board => {
+            if (board.isOpen) {
+              return board.columns.map(column => {
+                return column.tasks.find(task => task.id === elDataId)
+              }).filter(el => el !== undefined)[0]
+            } else return
+          })[0]
+          setMovingObj(currentElementDragged)
+          dargedObj.current = currentElementDragged
+          } else return 
+      })
+
+      draggable.addEventListener('touchend', handelDragEnd)
+      draggable.addEventListener('touchmove', e => {
+        const rect = e.target.getBoundingClientRect()
+        e.preventDefault()
+        setClientMove(
+          {
+            left: `${e.targetTouches[0].clientX - rect.y}px`, 
+            top: `${e.targetTouches[0].clientY - rect.y}px`,
+            position: 'absolute'
+          })
+
+        if (e.target === draggable) {
+          let filterID = []
+        for (let i = 0; i < ids.length; i++) {
+          if (e.touches[0].clientX > (i * 330)) {
+            filterID = []
+            filterID.push(ids[i])
+            
+          } 
+        }
+        currentContainer.current = filterID[0]
+        } else return 
+      })
     })
 
     containers.current.forEach(container =>{
@@ -77,26 +127,31 @@ export default function KanbanBoard() {
         e.preventDefault()
         const elData = container.dataset.id
         currentContainer.current = elData
-        console.log(elData)
       })
-    
+
     })
 
     return () => {
       draggables.current.forEach(draggable => {
         draggable.removeEventListener('dragstart', handelDragStart)
         draggable.removeEventListener('dragend', handelDragEnd)
-      })
-
-      containers.current.forEach(container => {
-        container.removeEventListener('dragover', e => {
-          e.preventDefault()
-          const elData = container.dataset.id
-          currentContainer.current = elData
+        draggable.removeEventListener('touchstart', e => {
+          if (e.target === draggable) {
+            const elDataId = e.target.dataset.id
+            const currentElementDragged = boards.map(board => {
+              if (board.isOpen) {
+                return board.columns.map(column => {
+                  return column.tasks.find(task => task.id === elDataId)
+                }).filter(el => el !== undefined)[0]
+              } else return
+          })[0]
+          setMovingObj(currentElementDragged)
+          dargedObj.current = currentElementDragged
+          } 
         })
-        
-      })
 
+        draggable.removeEventListener('touchend', handelDragEnd)
+      })
     }
 
   }, [boards, setBoards])
@@ -162,6 +217,7 @@ export default function KanbanBoard() {
                             {coloumn.tasks.map((task, index) => {
                                 let count = 0
                                 return (
+                                  <>
                                     <div 
                                         key={task.id} 
                                         className={`kanban-subtask-container draggable ${themeState ? 'light-mode' : 'dark-mode'}`}
@@ -179,9 +235,10 @@ export default function KanbanBoard() {
                                     }
                                     })}{count} of {task.subtasks.length} subtasks</p> : <p className="no-subtask-text">- No subtasks</p>}
                                     </div> 
+                                  </>
                                 )
                             })}  
-                        </div>   
+                        </div>
                     </section>
                 )
             }))
@@ -193,6 +250,24 @@ export default function KanbanBoard() {
         <main 
             className={`kanban-board-main-container ${themeState ? 'light-mode-background' : 'dark-mode-background'}`}>
             {kanbanBoardEl}
+            {movingObj ? 
+              <div style={{...clientMove}}>
+                <div 
+                      className={`kanban-subtask-container draggable ${themeState ? 'light-mode' : 'dark-mode'}`}
+                      draggable={true}
+                      >
+                  <h4 className={`task-title ${themeState ? 'light-mode' : 'dark-mode'}`}>{movingObj.title}</h4>  
+                  {movingObj.subtasks.length > 0 ? 
+                  <p className="tasks-subtasks">{
+                  movingObj.subtasks.map(subtask => { 
+                    let count = 0
+                      if (subtask.isCompleted) {
+                         
+                  }
+                  })}{} of {movingObj.subtasks.length} subtasks</p> : <p className="no-subtask-text">- No subtasks</p>}
+                  </div> 
+              </div> 
+              : ''}
             {screenWidth >= 760 ? 
               <section className={`add-new-column`}>
                 <div className={`inner-new-column ${themeState ? 'light-mode-column' : 'dark-mode-column'}`}>

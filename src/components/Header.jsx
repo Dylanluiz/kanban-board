@@ -42,7 +42,9 @@ export default function Header() {
     }
 
     function showDeleteBoardModal(name) {
-        document.querySelector(`.${name}-board`).showModal()
+        const modifiedName = name.split(' ').filter(el => el !== '').join('')
+
+        document.querySelector(`.${modifiedName}-board`).showModal()
     }
 
     const updateOpenBoard = (id) => {
