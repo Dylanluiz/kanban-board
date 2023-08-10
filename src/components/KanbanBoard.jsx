@@ -40,7 +40,7 @@ export default function KanbanBoard() {
     const handelDragEnd = e => {
       e.stopPropagation()
       if (dargedObj.current.id === e.target.dataset.id) {
-        document.querySelector('.is-moving').classList.remove('is-moving')
+        document.querySelector('.is-moving')?.classList.remove('is-moving')
       setBoards(prevBoards => {
         return prevBoards.map(board => {
           if (board.isOpen) {
@@ -99,19 +99,26 @@ export default function KanbanBoard() {
 
       draggable.addEventListener('touchend', handelDragEnd)
       draggable.addEventListener('touchmove', e => {
-        const rect = e.target.getBoundingClientRect()
         e.preventDefault()
+        console.log(e.touches[0])
         setClientMove(
+          screenWidth >= 760 ? 
           {
-            left: `${e.targetTouches[0].clientX - rect.y}px`, 
-            top: `${e.targetTouches[0].clientY - rect.y}px`,
+            left: `${e.touches[0].clientX}px`, 
+            top: `${e.touches[0].clientY}px`,
+            position: 'absolute'
+          }
+          : 
+          {
+            left: `${e.targetTouches[0].clientX}px`, 
+            top: `${e.targetTouches[0].clientY}px`,
             position: 'absolute'
           })
 
         if (e.target === draggable) {
           let filterID = []
         for (let i = 0; i < ids.length; i++) {
-          if (e.touches[0].clientX > (i * 330)) {
+          if (e.touches[0].clientX > (i * 300)) {
             filterID = []
             filterID.push(ids[i])
             
@@ -120,6 +127,7 @@ export default function KanbanBoard() {
         currentContainer.current = filterID[0]
         } else return 
       })
+     
     })
 
     containers.current.forEach(container =>{
@@ -149,7 +157,6 @@ export default function KanbanBoard() {
           dargedObj.current = currentElementDragged
           } 
         })
-
         draggable.removeEventListener('touchend', handelDragEnd)
       })
     }
@@ -226,6 +233,13 @@ export default function KanbanBoard() {
                                         data-id={task.id}
                                         draggable={true}
                                         >
+                                    <button 
+                                      className="moveable-line-container"
+                                      >
+                                      <div className="moveable-line"></div>
+                                      <div className="moveable-line"></div>
+                                      <div className="moveable-line"></div>
+                                    </button>
                                     <h4 className={`task-title ${themeState ? 'light-mode' : 'dark-mode'}`}>{task.title}</h4>  
                                     {task.subtasks.length > 0 ? 
                                     <p className="tasks-subtasks">{

@@ -286,6 +286,7 @@ header {
 .task-title {
   margin: 0;
   color: #FFF;
+  width: fit-content;
 }
 
 .tasks-subtasks {
@@ -293,6 +294,7 @@ header {
   color: #828FA3;
   font-size: 0.9rem;
   font-weight: 700;
+  width: fit-content;
 }
 
 .kanban-subtask-container {
@@ -306,6 +308,7 @@ header {
   gap: 10px;
   box-shadow: 0px 4px 6px 0px rgba(54, 78, 126, 0.10);
   cursor: pointer;
+  position: relative;
 }
 
 @keyframes ease-up {
@@ -1248,6 +1251,26 @@ input[type='color']::-webkit-color-swatch {
 .disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+/* movable line */
+
+.moveable-line-container {
+  display: flex;
+  flex-direction: column;
+  background-color: transparent;
+  border: none;  
+  gap: 3px;
+  position: absolute;
+  top: 10px;
+  right: 5px;
+}
+
+.moveable-line {
+  width: 15px;
+  height: 2px;
+  background-color: #635FC7;
+  border-radius: 2px;
 }
 
 @media (min-width: 425px) {
