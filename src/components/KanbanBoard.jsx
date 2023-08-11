@@ -121,8 +121,10 @@ export default function KanbanBoard() {
           if (e.touches[0].clientX > (i * 300)) {
             filterID = []
             filterID.push(ids[i])
-            
-          } 
+          } else if (i === 2 && e.touches[0].clientX + 200 > (i * 300)) {
+            filterID = []
+            filterID.push(ids[2])
+          }
         }
         currentContainer.current = filterID[0]
         } else return 
