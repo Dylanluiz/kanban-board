@@ -15,7 +15,7 @@ export const data = {
             tasks: [
               {
                 title: "Click me",
-                description: "You can create custom tasks, add as many subtasks as you need, you can track the total amount of completed subtasks aswell.",
+                description: "You can create custom tasks, add as many subtasks as you need, you can track the total amount of completed subtasks aswell as delete old tasks",
                 id: nanoid(),
                 isCurrentTask: false,
                 status: "Todo",
@@ -42,22 +42,27 @@ export const data = {
                 status: "Next",
                 subtasks: [
                   {
-                    title: "Step 1. Click the exit button",
+                    title: "Step 1. Read these",
                     id: nanoid(),
                     isCompleted: false
                   },
                   {
-                    title: "Step 2. Click the plus button in the top right corner",
+                    title: "Step 2. Click the exit button",
                     id: nanoid(),
                     isCompleted: false
                   },
                   {
-                    title: "Step 3. Then fill in the details of your task!",
+                    title: "Step 3. Click the plus button in the top right corner",
                     id: nanoid(),
                     isCompleted: false
                   },
                   {
-                    title: "Step 4. Then click create and your done!",
+                    title: "Step 4. Then fill in the details of your task!",
+                    id: nanoid(),
+                    isCompleted: false
+                  },
+                  {
+                    title: "Step 5. Then click create and your done!",
                     id: nanoid(),
                     isCompleted: false
                   }
@@ -73,7 +78,7 @@ export const data = {
             tasks: [
               {
               title: "Time to edit that task",
-              description: "Now that you've just created your first task, it's time to make some changes. This is where you will be able to make changes to you tasks, add new subtasks and move the tasks around to there",
+              description: "Now that you've just created your first task, it's time to make some changes. This is where you will be able to make changes to you tasks",
               id: nanoid(),
               isCurrentTask: false,
               isDragging: false,
@@ -88,6 +93,11 @@ export const data = {
                   title: "Make the changes you want",
                   id: nanoid(),
                   isCompleted: false
+                }, 
+                {
+                  title: "Click save",
+                  id: nanoid(),
+                  isCompleted: false
                 }
               ]
             },
@@ -99,8 +109,8 @@ export const data = {
             color: '#FFFFFF',
             isDelete: false,
             tasks: [{
-              title: "Create a new Kanban",
-              description: "Getting tired of the tutorial and want to create your own board, click on the arrow on the top of the screen and just click create new board",
+              title: "Create a new Kanban board",
+              description: "Getting tired of the tutorial and want to create your own board, click on the arrow on the top of the screen (or the eye in the corner) and just click create new board",
               id: nanoid(),
               isCurrentTask: false,
               status: "Later",
@@ -124,7 +134,7 @@ export const data = {
               ]
             },{
               title: "Need more columns",
-              description: "You can edit the board that you've just created aswell if you need to. You can add more columns aswell as Change the column names and colors",
+              description: "You can edit the board that you've just created aswell if you need to. You can add more columns aswell as change the column names and colors",
               id: nanoid(),
               isCurrentTask: false,
               isDragging: false,
@@ -151,7 +161,7 @@ export const data = {
               status: "Later",
               subtasks: [
                 {
-                  title: "Click on the arrow on the top",
+                  title: "Click on the arrow on the top (or eye in the corner)",
                   id: nanoid(),
                   isCompleted: false
                 },
